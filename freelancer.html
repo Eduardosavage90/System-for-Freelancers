@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Produtivo Coletivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #c62c2c;
+            --gold: #ffd700;
+            --dark-red: #8b0000;
+            --gray: #2f2f2f;
+            --light-gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .soviet-header {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .soviet-header h1 {
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .soviet-header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .hammer-sickle {
+            font-size: 3em;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-main {
+            background: var(--gray);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 2px solid var(--gold);
+        }
+
+        .nav-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 3px solid var(--red);
+            border-radius: 5px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .card::before {
+            content: "★";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--gold);
+            color: var(--red);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid var(--red);
+        }
+
+        .card h2 {
+            color: var(--dark-red);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .principle-item {
+            background: linear-gradient(135deg, #fff, #f8f8f8);
+            border-left: 5px solid var(--red);
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .principle-item h3 {
+            color: var(--dark-red);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .principle-item h3::before {
+            content: "⚒";
+            font-size: 1.5em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: var(--red);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 3px;
+            border: 2px solid var(--gold);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #2f2f2f, #4f4f4f);
+            color: white;
+            padding: 25px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border: 3px solid var(--gold);
+        }
+
+        .calculator h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .calc-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .calc-inputs input {
+            padding: 12px;
+            border: 2px solid var(--gold);
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .calc-inputs input::placeholder {
+            color: #ccc;
+        }
+
+        .calc-result {
+            background: var(--red);
+            padding: 20px;
+            text-align: center;
+            border-radius: 3px;
+            margin-top: 15px;
+            border: 2px solid var(--gold);
+        }
+
+        .soviet-footer {
+            background: var(--gray);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 5px solid var(--red);
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: var(--gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .worker-icon {
+            font-size: 2em;
+            margin: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .soviet-header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 80%;
+                margin: 5px 0;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid var(--gray);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--dark-red));
+            width: 0%;
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header class="soviet-header">
+        <div class="hammer-sickle">⚒</div>
+        <h1>Sistema Produtivo Coletivo</h1>
+        <div class="subtitle">Para o Fortalecimento das Pequenas e Médias Empresas</div>
+    </header>
+
+    <nav class="nav-main">
+        <div class="nav-container">
+            <button class="nav-btn" onclick="showSection('planificacao')">📊 Planificação</button>
+            <button class="nav-btn" onclick="showSection('cooperacao')">🤝 Cooperação</button>
+            <button class="nav-btn" onclick="showSection('eficiencia')">⚡ Eficiência</button>
+            <button class="nav-btn" onclick="showSection('calculadora')">🧮 Calculadora</button>
+            <button class="nav-btn" onclick="showSection('recursos')">📚 Recursos</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- SEÇÃO PRINCIPAL -->
+        <section id="planificacao" class="card">
+            <h2>📊 Planificação Científica do Trabalho</h2>
+            <p>A base do sucesso empresarial está na organização metódica e na distribuição racional dos recursos.</p>
+            
+            <div class="principles-grid">
+                <div class="principle-item">
+                    <h3>Metas de Produção</h3>
+                    <p>Estabeleça quotas realistas baseadas na capacidade produtiva real da sua empresa.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="metaProgress">75%</div>
+                    </div>
+                </div>
+                
+                <div class="principle-item">
+                    <h3>Gestão de Recursos</h3>
+                    <p>Otimização máxima de materiais, eliminando desperdícios capitalistas.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="recursoProgress">60%</div>
+                    </div>
+                </div>
+                
+                <div class="principle-item">
+                    <h3>Plano Quinquenal</h3>
+                    <p>Desenvolvimento estratégico em ciclos de 5 anos com metas progressivas.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quinquenalProgress">45%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COOPERAÇÃO -->
+        <section id="cooperacao" class="card" style="display: none;">
+            <h2>🤝 Cooperação entre Empresas</h2>
+            <p>Juntas, as pequenas empresas podem competir com os grandes monopólios capitalistas.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="coopEmpresas">0</div>
+                    <div>Empresas Cooperadas</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="economiaColetiva">R$ 0</div>
+                    <div>Economia Coletiva</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="projetosConjuntos">0</div>
+                    <div>Projetos Conjuntos</div>
+                </div>
+            </div>
+
+            <div class="principle-item">
+                <h3>Compartilhamento de Recursos</h3>
+                <p>Maquinário, expertise técnica e força de trabalho compartilhados entre empresas cooperadas.</p>
+            </div>
+        </section>
+
+        <!-- EFICIÊNCIA -->
+        <section id="eficiencia" class="card" style="display: none;">
+            <h2>⚡ Eficiência Produtiva</h2>
+            <p>Maximização da produtividade através de métodos científicos de organização do trabalho.</p>
+            
+            <div class="calculator">
+                <h3>Calculadora de Eficiência</h3>
+                <div class="calc-inputs">
+                    <input type="number" id="horasTrabalho" placeholder="Horas de trabalho/dia" value="8">
+                    <input type="number" id="unidadesProduzidas" placeholder="Unidades produzidas" value="100">
+                    <input type="number" id="custoUnitario" placeholder="Custo unitário (R$)" value="5.00">
+                </div>
+                <button class="nav-btn" onclick="calcularEficiencia()" style="width: 100%;">Calcular Eficiência</button>
+                
+                <div class="calc-result" id="resultadoEficiencia" style="display: none;">
+                    <!-- Resultados aparecem aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CALCULADORA -->
+        <section id="calculadora" class="card" style="display: none;">
+            <h2>🧮 Calculadora de Planificação</h2>
+            
+            <div class="calculator">
+                <h3>Planejamento de Produção</h3>
+                <div class="calc-inputs">
+                    <input type="number" id="metaMensal" placeholder="Meta mensal de produção" value="1000">
+                    <input type="number" id="diasUteis" placeholder="Dias úteis no mês" value="22">
+                    <input type="number" id="funcionarios" placeholder="Número de funcionários" value="10">
+                </div>
+                
+                <div class="calc-inputs">
+                    <input type="number" id="custoMateriais" placeholder="Custo de materiais (R$)" value="5000">
+                    <input type="number" id="custoMaoObra" placeholder="Custo mão de obra (R$)" value="15000">
+                </div>
+                
+                <button class="nav-btn" onclick="calcularProducao()" style="width: 100%;">Calcular Plano de Produção</button>
+                
+                <div class="calc-result" id="resultadoProducao" style="display: none;">
+                    <!-- Resultados aparecem aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RECURSOS -->
+        <section id="recursos" class="card" style="display: none;">
+            <h2>📚 Recursos para Desenvolvimento</h2>
+            
+            <div class="principles-grid">
+                <div class="principle-item">
+                    <h3>Metodologias de Trabalho</h3>
+                    <p>STAKHANOVITE: Sistema de incentivo à produtividade exemplar</p>
+                    <button class="nav-btn" style="margin-top: 10px; padding: 8px 16px;">Acessar Métodos</button>
+                </div>
+                
+                <div class="principle-item">
+                    <h3>Cooperativas de Compra</h3>
+                    <p>Adquira insumos com descontos através de compras coletivas</p>
+                    <button class="nav-btn" style="margin-top: 10px; padding: 8px 16px;">Participar</button>
+                </div>
+                
+                <div class="principle-item">
+                    <h3>Treinamento Coletivo</h3>
+                    <p>Capacitação técnica compartilhada entre empresas cooperadas</p>
+                    <button class="nav-btn" style="margin-top: 10px; padding: 8px 16px;">Ver Cursos</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CITAÇÃO INSPIRADORA -->
+        <div class="card">
+            <div class="quote">
+                "A união das pequenas empresas fortalece a economia nacional e constrói uma base produtiva sólida contra os monopólios capitalistas."
+            </div>
+            <div style="text-align: center; color: var(--red); font-weight: bold;">
+                — Princípio do Sistema Produtivo Coletivo
+            </div>
+        </div>
+    </div>
+
+    <footer class="soviet-footer">
+        <div class="hammer-sickle">⚒</div>
+        <div class="worker-icon">👨‍🔧 👩‍🏭</div>
+        <p>Sistema Produtivo Coletivo - Para uma Economia Forte e Independente</p>
+        <p>Pequenas e Médias Empresas Unidas pela Produtividade e Eficiência</p>
+    </footer>
+
+    <script>
+        // Sistema de Navegação
+        function showSection(sectionId) {
+            // Esconder todas as seções
+            document.querySelectorAll('.card').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Mostrar seção selecionada
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Inicializar seção se necessário
+            if (sectionId === 'cooperacao') {
+                inicializarCooperacao();
+            }
+        }
+
+        // Inicializar barras de progresso
+        function inicializarProgresso() {
+            setTimeout(() => {
+                document.getElementById('metaProgress').style.width = '75%';
+                document.getElementById('recursoProgress').style.width = '60%';
+                document.getElementById('quinquenalProgress').style.width = '45%';
+            }, 500);
+        }
+
+        // Sistema de Cooperação
+        function inicializarCooperacao() {
+            document.getElementById('coopEmpresas').textContent = '47';
+            document.getElementById('economiaColetiva').textContent = 'R$ 1.2M';
+            document.getElementById('projetosConjuntos').textContent = '23';
+        }
+
+        // Calculadora de Eficiência
+        function calcularEficiencia() {
+            const horas = parseFloat(document.getElementById('horasTrabalho').value) || 8;
+            const unidades = parseFloat(document.getElementById('unidadesProduzidas').value) || 100;
+            const custo = parseFloat(document.getElementById('custoUnitario').value) || 5;
+            
+            const eficiencia = (unidades / horas).toFixed(2);
+            const custoTotal = (unidades * custo).toFixed(2);
+            const custoHora = (custoTotal / horas).toFixed(2);
+            
+            const resultado = `
+                <h4>📈 Resultados da Eficiência</h4>
+                <p>⚡ Produção por hora: <strong>${eficiencia} unidades/h</strong></p>
+                <p>💰 Custo total de produção: <strong>R$ ${custoTotal}</strong></p>
+                <p>⏱️ Custo por hora de trabalho: <strong>R$ ${custoHora}/h</strong></p>
+                <p>🎯 Meta recomendada: <strong>${Math.round(unidades * 1.2)} unidades/dia</strong></p>
+            `;
+            
+            document.getElementById('resultadoEficiencia').innerHTML = resultado;
+            document.getElementById('resultadoEficiencia').style.display = 'block';
+        }
+
+        // Calculadora de Produção
+        function calcularProducao() {
+            const meta = parseFloat(document.getElementById('metaMensal').value) || 1000;
+            const dias = parseFloat(document.getElementById('diasUteis').value) || 22;
+            const funcionarios = parseFloat(document.getElementById('funcionarios').value) || 10;
+            const custoMateriais = parseFloat(document.getElementById('custoMateriais').value) || 5000;
+            const custoMaoObra = parseFloat(document.getElementById('custoMaoObra').value) || 15000;
+            
+            const producaoDiaria = meta / dias;
+            const producaoPorFuncionario = producaoDiaria / funcionarios;
+            const custoUnitario = (custoMateriais + custoMaoObra) / meta;
+            const custoTotal = custoMateriais + custoMaoObra;
+            
+            const resultado = `
+                <h4>🏭 Plano de Produção</h4>
+                <p>📊 Produção diária necessária: <strong>${producaoDiaria.toFixed(2)} unidades/dia</strong></p>
+                <p>👨‍🔧 Produção por funcionário: <strong>${producaoPorFuncionario.toFixed(2)} unidades/dia</strong></p>
+                <p>💰 Custo unitário: <strong>R$ ${custoUnitario.toFixed(2)}</strong></p>
+                <p>💵 Custo total mensal: <strong>R$ ${custoTotal.toFixed(2)}</strong></p>
+                <p>🎯 Eficiência recomendada: <strong>${Math.round(producaoPorFuncionario * 1.15)} unidades/funcionário</strong></p>
+            `;
+            
+            document.getElementById('resultadoProducao').innerHTML = resultado;
+            document.getElementById('resultadoProducao').style.display = 'block';
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarProgresso();
+            showSection('planificacao');
+        });
+    </script>
+</body>
+</html>
